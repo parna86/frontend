@@ -2,12 +2,11 @@
   <div class = "pipeline-step-container">
     <div class="top">
       <h3>{{ title }}</h3>
-      <button @click="showModal = !showModal">Add element</button>
+      <button @click="showModal = true">Add element</button>
     </div>
     <div v-if="showModal">
       <ChooseStep :whichStep="title" />
     </div>
-    
   </div>
 </template>
 

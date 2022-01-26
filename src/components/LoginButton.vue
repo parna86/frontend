@@ -1,7 +1,7 @@
 <template>
   <button>Login {{ username }}</button>
 </template>
-
+  
 <script>
 export default {
   name: 'LoginButton',

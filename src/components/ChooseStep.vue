@@ -4,12 +4,12 @@
         <option v-for="(value, name) in listOfPreprocessingSteps" :key="name">{{ name }}</option>
       </select>
   <div v-show="name">
-    <form>
-        <div v-for="(v,n) in params" :key="n">
-          <label>{{ n }}</label>
-          <input type="number" value="v">
-        </div>
-        <input type="submit" value="Submit">
+    <form ref="form">
+      <div v-for="(val, n) in params" :key="n">
+        <label>{{ n }}</label>
+        <input type="number">
+      </div>
+      <input type="submit" value="Submit" @submit.prevent="addInfo()">
     </form>
   </div>
   </div>
@@ -33,11 +33,15 @@ export default {
   methods: {
     addElement (key, value) {
       this.$parent.addElement(key, value)
+    },
+    addInfo (e) {
+      var a = new FormData(e.target)
+      console.log(Object.fromEntries(a.entries()))
     }
   },
   computed: {
     params () {
-      return this.listOfPreprocessingSteps[this.name] ? this.listOfPreprocessingSteps[this.name].paramset : {};
+      return this.listOfPreprocessingSteps[this.name] ? this.listOfPreprocessingSteps[this.name].paramset : {}
     }
   }
 }
