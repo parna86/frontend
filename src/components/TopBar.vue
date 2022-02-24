@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar">
     <h1>SpikeInterface GUI</h1>
-    <LoginButton :username='name' />
+    <LoginButton />
   </div>
 </template>
 
@@ -9,21 +9,22 @@
 import LoginButton from '@/components/LoginButton.vue'
 export default {
   name: 'TopBar',
-  data (){
+  data () {
     return {
-      name: "Matthias"
+      name: 'Matthias'
     }
   },
   components: {
     LoginButton
-    }
+  }
 }
 </script>
 
 <style lang="scss">
 .top-bar {
   width: 100%;
-  background-color: aliceblue;
+  background-color: $steel-blue;
+  color: $white-smoke;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
@@ -32,4 +33,10 @@ export default {
 body{
     margin: 0;
 }
+
+h1{
+  align-self: center;
+  justify-self: end;
+}
+
 </style>

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Pipeline from '../views/SetupPipeline.vue'
+import HomePage from '../views/HomePage.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Set Up Pipeline',
-    component: Pipeline
+    name: 'Home page',
+    component: HomePage
   }
 ]
 

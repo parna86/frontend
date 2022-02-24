@@ -1,0 +1,31 @@
+{
+ "listForm": {
+    "Bandpass filter":{
+      "description":"Bandpass filter of a recording",
+      "filename": "bandpass_filter",
+      "paramset" :{
+        "freq_min" : ["number", 300.0],
+        "freq_max" : ["number", 6000.0],
+        "margin_ms": ["number", 5.0],
+        "dType" : ["text", "None"]
+      }
+    },
+    "Scale":{
+      "description" : "Scale traces from the given recording extractor with a scalar and offset. New traces = traces*scalar + offset.",
+      "filename": "normalize_scale",
+      "paramset" :{
+       "scale": ["number", 1.0],
+       "median": ["number", 0.0],
+       "q1": ["number", 0.01],
+       "q2": ["number", 0.99]
+      }
+    },
+    "Whiten":{
+      "description": "Whitens the recording extractor traces.",
+      "filename": "whiten",
+      "paramset" :{
+        "by_property": ["text", "None"]
+      }
+    }
+  }
+}
