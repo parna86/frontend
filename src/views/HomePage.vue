@@ -48,6 +48,7 @@
             <label :for="k">{{ k }}</label>
             <input :type="v[0]" :value="v[1]" :step="Number.isInteger(v[1]) ? 1 : 0.01" :id="k" :name="k">
           </div>
+          <input :value="listOfSpikeSorters[pickSubStep].filename" name="filename" style="display:none">
           <input type="submit" value="Submit"/>
         </form>
       </div>
