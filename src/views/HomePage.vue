@@ -36,7 +36,7 @@
           <input name="ref" type="text" />
           <div v-for="(v, k) in listOfPreprocessingSteps[pickSubStep].paramset" :key="k" class="individual-labels">
             <label :for="k">{{ k }}</label>
-            <input :type="v[0]" :value="v[1]" :step="Number.isInteger(v[1]) ? 1 : 0.01" :id="k" :name="k">
+            <input :type="v[0]" :value="v[1]" :step="v[0] === 'number' ? 1 : 0.01" :id="k" :name="k">
           </div>
           <input type="submit" value="Submit"/>
         </form>
@@ -46,9 +46,19 @@
           <input name="ref" type="text" />
           <div v-for="(v, k) in listOfSpikeSorters[pickSubStep].paramset" :key="k" class="individual-labels">
             <label :for="k">{{ k }}</label>
-            <input :type="v[0]" :value="v[1]" :step="Number.isInteger(v[1]) ? 1 : 0.01" :id="k" :name="k">
+            <input :type="v[0]" :value="v[1]" :step="v[0] === 'number' ? 1 : 0.01" :id="k" :name="k">
           </div>
           <input :value="listOfSpikeSorters[pickSubStep].filename" name="filename" style="display:none">
+          <input type="submit" value="Submit"/>
+        </form>
+
+        <form class="params" v-else-if="pickSubStep != 'none' && pickStep == 'postprocessing'" id="params-form" @submit.prevent="addStep()">
+          <label for="ref"><b>Reference</b></label>
+          <input name="ref" type="text" />
+          <div v-for="(v, k) in listOfPostprocessingSteps[pickSubStep].paramset" :key="k" class="individual-labels">
+            <label :for="k">{{ k }}</label>
+            <input :type="v[0]" :value="v[1]" :step="v[0] === 'number' ? 1 : 0.01" :id="k" :name="k">
+          </div>
           <input type="submit" value="Submit"/>
         </form>
       </div>
@@ -82,6 +92,7 @@ import TopBar from '@/components/TopBar.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import preprocessingSteps from '@/assets/listOfPreprocessing.json'
 import spikeSorters from '@/assets/listOfSpikeSorters.json'
+import postprocessing from '@/assets/listOfPostprocessing.json'
 
 export default {
   name: 'HomePage',
@@ -96,6 +107,7 @@ export default {
       pickSubStep: 'none',
       listOfPreprocessingSteps: preprocessingSteps.listForm,
       listOfSpikeSorters: spikeSorters.listForm,
+      listOfPostprocessingSteps: postprocessing.listForm,
       pipeline: [],
       drag: false
     }

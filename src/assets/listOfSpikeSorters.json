@@ -3,20 +3,20 @@
     "Herdingspikes2": {
     "filename": "herdingspikes",
     "paramset" : {
-      "clustering_bandwidth": ["number", 5.5],
-      "clustering_alpha": ["number", 5.5], 
+      "clustering_bandwidth": ["float", 5.5],
+      "clustering_alpha": ["float", 5.5], 
       "clustering_n_jobs": ["number",  -1],
       "clustering_bin_seeding": ["text", "True"],
       "clustering_min_bin_freq": ["number", 16],
       "clustering_subset": ["text", "None"],
-      "left_cutout_time": ["number", 0.3],
-      "right_cutout_time": ["number", 1.8],
+      "left_cutout_time": ["float", 0.3],
+      "right_cutout_time": ["float", 1.8],
       "detect_threshold": ["number", 20],
       "probe_masked_channels": ["text", "[]"],
       "probe_inner_radius": ["number", 70],
       "probe_neighbor_radius": ["number", 90],
-      "probe_event_length": ["number", 0.26],
-      "probe_peak_jitter": ["number", 0.2],
+      "probe_event_length": ["float", 0.26],
+      "probe_peak_jitter": ["float", 0.2],
       "t_inc": ["number", 100000],
       "num_com_centers": ["number", 1],
       "maa": ["number", 12],
@@ -24,21 +24,32 @@
       "out_file_name": ["text", "HS2_detected"],
       "decay_filtering": ["text", "False"],
       "save_all": ["text", "False"],
-      "amp_evaluation_time": ["number", 0.4],
-      "spk_evaluation_time": ["number", 1.0],
+      "amp_evaluation_time": ["float", 0.4],
+      "spk_evaluation_time": ["float", 1.0],
       "pca_ncomponents": ["number", 2],
       "pca_whiten": ["text", "True"],
-      "freq_min": ["number", 300.0],
-      "freq_max": ["number", 6000.0],
+      "freq_min": ["float", 300.0],
+      "freq_max": ["float", 6000.0],
       "filter": ["text", "True"],
       "pre_scale": ["text", "True"],
-      "pre_scale_value": ["number", 20.0],
+      "pre_scale_value": ["float", 20.0],
       "filter_duplicates": ["text", "True"]
       }
     },
     "MountainSort4":{
       "filename":"something",
-      "paramset": {}
+      "paramset": {
+        "detect_sign": ["number", -1],
+        "adjacency_radius": ["number", -1],
+        "freq_min": ["number", 300],  
+        "freq_max": ["number", 6000],
+        "filter": ["text", "True"],
+        "whiten": ["text", "True"],  
+        "num_workers": ["number", 1],
+        "clip_size": ["number", 50],
+        "detect_threshold" : ["number", 3],
+        "detect_interval": ["number", 10]
+      }
     }
   }
 }

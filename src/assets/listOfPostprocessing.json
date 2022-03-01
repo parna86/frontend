@@ -1,0 +1,12 @@
+{
+  "listForm": {
+     "Get template amplitudes":{
+       "description":"Get amplitude per channel for each unit",
+       "filename": "idk",
+       "paramset" :{
+         "peak_sign" : ["text", "neg"],
+         "mode" : ["str", "extremum"]
+       }
+     }
+   }
+ }
