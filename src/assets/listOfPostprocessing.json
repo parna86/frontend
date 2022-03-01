@@ -1,6 +1,6 @@
 {
   "listForm": {
-     "Get template amplitudes":{
+     "Get template amplitudes": {
        "description":"Get amplitude per channel for each unit",
        "filename": "idk",
        "paramset" :{

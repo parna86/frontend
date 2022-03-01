@@ -4,7 +4,7 @@
     <div class="content">
       <div class="steps-wrapper">
         <h4>Choose one of the steps below:</h4>
-        <div style="margin-top: 30px">
+        <div class="checkbox-wrapper-outer" style="margin-top: 30px">
           <div class="checkbox-wrapper" v-for="step in currentSteps" :key="step.id" >
             <input type="radio" class="main-labels" name="steps"  :id="step.id" v-model="pickStep" v-bind:value="step.id">
             <label class="main-labels" :for="step.id">{{ step.something }}</label>
@@ -25,6 +25,15 @@
           <h5>The list of spike sorters available are:</h5>
           <hr/>
           <div v-for="(value, name) in listOfSpikeSorters" :key="name" >
+            <input type="radio" :id="name" name="substeps" v-model="pickSubStep" v-bind:value="name">
+            <label :for="name" >{{ name }}</label>
+          </div>
+        </div>
+
+        <div class="parameters-wrapper" v-if="pickStep == 'postprocessing'">
+          <h5>The list of postprocessors available are:</h5>
+          <hr/>
+          <div v-for="(value, name) in listOfPostprocessingSteps" :key="name" >
             <input type="radio" :id="name" name="substeps" v-model="pickSubStep" v-bind:value="name">
             <label :for="name" >{{ name }}</label>
           </div>
@@ -109,7 +118,8 @@ export default {
       listOfSpikeSorters: spikeSorters.listForm,
       listOfPostprocessingSteps: postprocessing.listForm,
       pipeline: [],
-      drag: false
+      drag: false,
+      sorters: []
     }
   },
   components: {
@@ -229,6 +239,17 @@ export default {
     display: inline;
     margin-left: 5px;
     margin-right: 5px;
+  }
+
+  @media (max-width: 960px) {
+    .checkbox-wrapper-outer{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .checkbox-wrapper{
+      margin: 10px auto;
+    }
   }
 
   label.main-labels{
