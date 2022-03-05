@@ -82,7 +82,7 @@
           accept="application/JSON"
           @change="onFilePicked"/>
         <ol>
-          <li class="pipeline-structure-one-unit" v-for="oneStep in pipeline" :key="oneStep.nameOfStep">
+          <li class="pipeline-structure-one-unit" v-for="oneStep in thePipeline" :key="oneStep.nameOfStep">
             {{ oneStep.nameOfStep }}
             <span v-if="oneStep.ref">Ref: {{ oneStep.ref }}</span>
             <CloseIcon class="close" @click="removeStep(oneStep.id)" />
@@ -138,6 +138,7 @@ export default {
   },
   methods: {
     addStep () {
+      console.log(this.pipeline)
       var form = document.getElementById('params-form')
       var formData = new FormData(form)
       var object = { nameOfStep: this.pickSubStep, category: this.pickStep, id: this.pipeline.length }
@@ -195,10 +196,12 @@ export default {
       reader.addEventListener('load', function () {
         // convert image file to base64 string
         this.pipeline = JSON.parse(reader.result)
-        console.log(JSON.stringify(this.pipeline))
-        console.log(typeof this.pipeline)
-        console.log('____________________________________________')
-      }, false)
+
+        console.log(this.pipeline[0].nameOfStep)
+        // console.log(JSON.stringify(this.pipeline))
+        // console.log(typeof this.pipeline)
+        // console.log('____________________________________________')
+      }.bind(this))
 
       if (file) {
         reader.readAsText(file)
