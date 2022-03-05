@@ -118,8 +118,7 @@ export default {
       listOfSpikeSorters: spikeSorters.listForm,
       listOfPostprocessingSteps: postprocessing.listForm,
       pipeline: [],
-      drag: false,
-      sorters: []
+      drag: false
     }
   },
   components: {
