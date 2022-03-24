@@ -183,6 +183,7 @@
       <div class="error-handling">
         <h3>Status of pipeline, error messages</h3>
         <p> {{ info }} </p>
+        <p> {{ additionalInfo }}</p>
       </div>
     </div>
   </div>
@@ -215,7 +216,8 @@ export default {
       pipeline: [],
       availableDatasets: [],
       runPipelineError: false,
-      info: 'All good so far!'
+      info: 'All good so far!',
+      additionalInfo: ''
     }
   },
   components: {
@@ -226,6 +228,10 @@ export default {
   watch: {
     pickStep: function () {
       this.pickSubStep = 'none'
+      if (this.info !== 'Pipeline running') {
+        this.info = 'All good so far!'
+      }
+      this.additionalInfo = ''
     }
   },
   computed: {
@@ -238,16 +244,16 @@ export default {
       console.log(this.pipeline)
       var form = document.getElementById('params-form')
       var formData = new FormData(form)
-      var params_dict = {}
+      var paramsDict = {}
       var object = {
         nameOfStep: this.pickSubStep,
         category: this.pickStep,
         id: this.pipeline.length
       }
       formData.forEach(function (value, key) {
-        params_dict[key] = value
+        paramsDict[key] = value
       })
-      object["params"] = params_dict
+      object.params = paramsDict
       console.log(this.pipeline)
       console.log('before pushing informaiton')
       this.pipeline.push(object)
@@ -279,7 +285,11 @@ export default {
     runPipeline () {
       if (this.pipeline.length === 0) {
         this.info = 'The pipeline is currently empty - cannot run!'
+        this.additionalInfo = ''
         return
+      }
+      if (this.info === 'Pipeline running') {
+        this.additionalInfo = 'There is a pipeline already running, please wait'
       }
       var url = 'http://127.0.0.1:5000/run'
       var data = JSON.stringify(this.pipeline)
@@ -318,9 +328,7 @@ export default {
           // convert image file to base64 string
           this.pipeline = JSON.parse(reader.result)
           console.log(this.pipeline[0].nameOfStep)
-          // console.log(JSON.stringify(this.pipeline))
-          // console.log(typeof this.pipeline)
-          // console.log('____________________________________________')
+          this.info = 'pipeline uploaded successfully'
         }.bind(this)
       )
 

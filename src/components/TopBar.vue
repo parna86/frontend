@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar">
-    <h1>SpikeInterface GUI</h1>
+    <h1>SpikeInterface - the web application</h1>
     <LoginButton />
   </div>
 </template>
