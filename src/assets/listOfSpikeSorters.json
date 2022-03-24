@@ -37,7 +37,7 @@
       }
     },
     "MountainSort4":{
-      "filename":"something",
+      "filename":"mountainsort4",
       "paramset": {
         "detect_sign": ["number", -1],
         "adjacency_radius": ["number", -1],

@@ -27,7 +27,7 @@
 
         <!-- INDIVIDUAL STEP WRAPPERS -->
         <div class="parameters-wrapper" v-if="pickStep == 'preprocessing'">
-          <h5>The list of preprocessing steps available are:</h5>
+          <h5>The list of preprocessors available are:</h5>
           <hr />
           <div v-for="(value, name) in listOfPreprocessingSteps" :key="name">
             <input
@@ -238,14 +238,16 @@ export default {
       console.log(this.pipeline)
       var form = document.getElementById('params-form')
       var formData = new FormData(form)
+      var params_dict = {}
       var object = {
         nameOfStep: this.pickSubStep,
         category: this.pickStep,
         id: this.pipeline.length
       }
       formData.forEach(function (value, key) {
-        object[key] = value
+        params_dict[key] = value
       })
+      object["params"] = params_dict
       console.log(this.pipeline)
       console.log('before pushing informaiton')
       this.pipeline.push(object)
@@ -282,6 +284,7 @@ export default {
       var url = 'http://127.0.0.1:5000/run'
       var data = JSON.stringify(this.pipeline)
       console.log(data)
+      this.info = 'Pipeline running'
       this.axios.post(url, data, { headers: { 'Content-Type': 'application/json' } })
         .then((response) => {
           this.info = response
