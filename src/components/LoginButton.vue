@@ -1,8 +1,8 @@
 <template>
   <div class="button">
     <a>Login</a>
-    <a target="_blank" href="https://spikeinterface.readthedocs.io/en/latest/overview.html">About SpikeInterface</a>
-    <a target="_blank" href="https://github.com/SpikeInterface">GitHub</a>
+    <a target="_blank" href="https://spikeinterface.readthedocs.io/en/latest/overview.html">Official documentation</a>
+    <a target="_blank" href="https://github.com/SpikeInterface">GitHub organisation</a>
   </div>
 </template>
 
@@ -35,9 +35,13 @@ export default {
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    font-size: 14pt;
+    border: 1px solid rgba(black, 0.2);
+    box-sizing: border-box;
 
     &:hover{
       background-color: #ccc;
+      cursor: pointer;
     }
   }
 }

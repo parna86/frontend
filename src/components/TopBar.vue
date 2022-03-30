@@ -1,6 +1,9 @@
 <template>
   <div class="top-bar">
-    <h1>SpikeInterface - the web application</h1>
+    <div class="wrapper">
+       <h1>SpikeInterface</h1>
+       <a>New to this? Click here to learn more.</a>
+    </div>
     <LoginButton />
   </div>
 </template>
@@ -27,16 +30,23 @@ export default {
   color: $white-smoke;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-areas: "left right";
 }
 
 body{
     margin: 0;
 }
 
+.wrapper{
+  display:grid;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
 h1{
   align-self: center;
-  justify-self: end;
 }
-
+a {
+  align-self: start;
+}
 </style>

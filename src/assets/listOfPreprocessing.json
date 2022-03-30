@@ -4,25 +4,25 @@
       "description":"Bandpass filter of a recording",
       "filename": "bandpass_filter",
       "paramset" :{
-        "freq_min" : ["float", 300.0],
-        "freq_max" : ["float", 6000.0],
-        "margin_ms": ["float", 5.0],
-        "dType" : ["text", "None"]
+        "freq_min" : ["float", 300.0, "The highpass cutoff frequency in Hz"],
+        "freq_max" : ["float", 6000.0, "The lowpass cutoff frequency in Hz"],
+        "margin_ms": ["float", 5.0, "Margin in ms on border to avoid border effect"],
+        "dType" : ["text", "None", "The dtype of the returned traces. If None, the dtype of the parent recording is used"]
       }
     },
     "Scale":{
       "description" : "Scale traces from the given recording extractor with a scalar and offset. New traces = traces*scalar + offset.",
       "filename": "normalize_scale",
       "paramset" :{
-       "gain": ["float", 1.0],
-       "offset": ["float", 0.0]
+       "gain": ["float", 1.0, "Scalar for the traces of the recording extractor or array with scalars for each channel"],
+       "offset": ["float", 0.0, "Offset for the traces of the recording extractor or array with offsets for each channel"]
       }
     },
     "Whiten":{
       "description": "Whitens the recording extractor traces.",
       "filename": "whiten",
       "paramset" :{
-        "by_property": ["text", "None"]
+        "by_property": ["text", "None", "This parameter is used to split the recording in groups for whitening. If None, all the channels are whiten together."]
       }
     }
   }

@@ -4,7 +4,7 @@
     <ErrorModal v-if="runPipelineError"/>
     <div class="content">
       <div class="steps-wrapper">
-        <h4>Choose one of the steps below:</h4>
+        <h5>Choose one of the steps below:</h5>
         <div class="checkbox-wrapper-outer" style="margin-top: 30px">
           <div
             class="checkbox-wrapper"
@@ -28,7 +28,7 @@
 
         <!-- INDIVIDUAL STEP WRAPPERS -->
         <div class="parameters-wrapper" v-if="pickStep == 'preprocessing'">
-          <h5>The list of preprocessors available are:</h5>
+          <h4>The list of preprocessors available are:</h4>
           <hr />
           <div v-for="(value, name) in listOfPreprocessingSteps" :key="name">
             <input
@@ -39,12 +39,12 @@
               v-model="pickSubStep"
               v-bind:value="name"
             />
-            <label :for="name">{{ name }}</label>
+            <label :for="name">{{ name }} <br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'spikesorting'">
-          <h5>The list of spike sorters available are:</h5>
+          <h4>The list of spike sorters available are:</h4>
           <hr />
           <div v-for="(value, name) in listOfSpikeSorters" :key="name">
             <input
@@ -60,7 +60,7 @@
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'postprocessing'">
-          <h5>The list of postprocessors available are:</h5>
+          <h4>The list of postprocessors available are:</h4>
           <hr />
           <div v-for="(value, name) in listOfPostprocessingSteps" :key="name">
             <input
@@ -82,14 +82,14 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Reference</b></label>
-          <input name="ref" aria-label="reference for spikesorting step" type="text" />
+          <label for="ref"><b>Optional - Reference</b></label>
+          <input name="ref" aria-label="reference for preprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfPreprocessingSteps[pickSubStep].paramset"
             :key="k"
             class="individual-labels"
           >
-            <label :for="k" data-toggle="tooltip" data-placement="top" title="Tooltip on top">{{ k }}</label>
+            <label :for="k" data-toggle="tooltip" data-placement="top" title="Tooltip on top">{{ k }} <br> {{ v[2] }}</label>
             <input
               :type="v[0]"
               :value="v[1]"
@@ -110,8 +110,8 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Reference</b></label>
-          <input name="ref" type="text" />
+          <label for="ref"><b>Optional - Reference</b></label>
+          <input name="ref" aria-label="reference for preprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfSpikeSorters[pickSubStep].paramset"
             :key="k"
@@ -143,8 +143,8 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Reference</b></label>
-          <input name="ref" type="text" />
+          <label for="ref"><b>Optional - Reference</b></label>
+          <input name="ref" aria-label="reference for postprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfPostprocessingSteps[pickSubStep].paramset"
             :key="k"
@@ -177,7 +177,8 @@
           accept="application/JSON"
           @change="onFilePicked"
         />
-        <ol>
+        <ol class="pipeline-body">
+          <h3>The pipeline will be built here</h3>
           <li
             class="pipeline-structure-one-unit"
             v-for="oneStep in thePipeline"
@@ -200,6 +201,7 @@
       </div>
     </div>
   </div>
+   <!-- <footer>Developed by Aparna Rajeev in the School of Informatics, University of Edinburgh</footer> -->
   </div>
 </template>
 
@@ -377,6 +379,11 @@ export default {
   border-top: none;
   width: 100%;
   margin: 0;
+  padding-bottom: 50px;
+}
+
+h4{
+  margin: 2px;
 }
 
 .checkbox-wrapper {
@@ -429,12 +436,16 @@ input[type="radio"].main-labels:checked + label.main-labels {
     justify-content: start;
   }
 
-  h5 {
-    margin: 2px;
-  }
-
   label {
     text-align: left;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 1px;
+    padding: 2px;
+  }
+  .description{
+    color: #888;
   }
 }
 
@@ -459,6 +470,7 @@ input[type="radio"].main-labels:checked + label.main-labels {
     margin-right: 3px;
     justify-self: end;
     font-size: 12pt;
+    text-align: right;
   }
 
   .input {
@@ -518,5 +530,15 @@ input[type="submit"] {
   &:hover {
     background: rgba($steel-blue, 0.7);
   }
+}
+
+.pipeline-body{
+  border: 1px solid $dark-slate-grey;
+  padding-bottom: 20px;
+  width: 80%;
+}
+
+footer{
+  bottom: 0;
 }
 </style>
