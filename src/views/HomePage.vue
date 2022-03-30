@@ -89,7 +89,7 @@
             :key="k"
             class="individual-labels"
           >
-            <label :for="k">{{ k }}</label>
+            <label :for="k" data-toggle="tooltip" data-placement="top" title="Tooltip on top">{{ k }}</label>
             <input
               :type="v[0]"
               :value="v[1]"
@@ -101,7 +101,7 @@
               aria-required="true"
             />
           </div>
-          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Add step to pipeline" />
         </form>
 
         <form
@@ -134,7 +134,7 @@
             name="filename"
             style="display: none"
           />
-          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Add step to pipeline" />
         </form>
 
         <form
@@ -162,16 +162,14 @@
               aria-required="true"
             />
           </div>
-          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Add step to pipeline" />
         </form>
       </div>
 
       <!-- steps-wrapper -->
       <div class="pipeline-structure">
         <div>
-        <button class="btn btn-info" @click="onPickFile">
-          Upload pipeline
-        </button>
+        <button @click="runPipeline()">Run pipeline</button>
         <input
           type="file"
           style="display: none"
@@ -190,11 +188,13 @@
             <CloseIcon class="close" @click="removeStep(oneStep.id)" />
           </li>
         </ol>
-        <button @click="runPipeline()">Run pipeline</button>
+        <button class="btn btn-info" @click="onPickFile">
+          Upload pipeline
+        </button>
         <button @click="downloadPipeline()">Download pipeline</button>
       </div>
       <div class="error-handling">
-        <h3>Status of pipeline, error messages</h3>
+        <h3>Status of pipeline</h3>
         <p> {{ info }} </p>
         <p> {{ additionalInfo }}</p>
       </div>
