@@ -15,6 +15,7 @@
               type="radio"
               class="main-labels"
               name="steps"
+              :aria-label="pickStep"
               :id="step.id"
               v-model="pickStep"
               v-bind:value="step.id"
@@ -34,6 +35,7 @@
               type="radio"
               :id="name"
               name="substeps"
+              :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
             />
@@ -49,6 +51,7 @@
               type="radio"
               :id="name"
               name="substeps"
+              :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
             />
@@ -64,6 +67,7 @@
               type="radio"
               :id="name"
               name="substeps"
+              :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
             />
@@ -79,7 +83,7 @@
           @submit.prevent="addStep()"
         >
           <label for="ref"><b>Reference</b></label>
-          <input name="ref" type="text" />
+          <input name="ref" aria-label="reference for spikesorting step" type="text" />
           <div
             v-for="(v, k) in listOfPreprocessingSteps[pickSubStep].paramset"
             :key="k"
@@ -92,9 +96,12 @@
               :step="v[0] === 'number' ? 1 : 0.01"
               :id="k"
               :name="k"
+              :aria-label="k"
+              required
+              aria-required="true"
             />
           </div>
-          <input type="submit" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
         </form>
 
         <form
@@ -117,6 +124,9 @@
               :step="v[0] === 'number' ? 1 : 0.01"
               :id="k"
               :name="k"
+              :aria-label="k"
+              required
+              aria-required="true"
             />
           </div>
           <input
@@ -124,7 +134,7 @@
             name="filename"
             style="display: none"
           />
-          <input type="submit" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
         </form>
 
         <form
@@ -147,9 +157,12 @@
               :step="v[0] === 'number' ? 1 : 0.01"
               :id="k"
               :name="k"
+              :aria-label="k"
+              required
+              aria-required="true"
             />
           </div>
-          <input type="submit" value="Submit" />
+          <input type="submit" aria-label="Add step to pipeline" value="Submit" />
         </form>
       </div>
 
