@@ -1,8 +1,8 @@
 <template>
   <div class="top-bar">
     <div class="wrapper">
-       <h1>SpikeInterface</h1>
-       <a>New to this? Click here to learn more.</a>
+       <h1>SpikeWeb</h1>
+       <h3>New to this? Click <a href="https://parna86.github.io/spikeinterface-web-docs/" target="_blank">here</a> to learn more.</h3>
     </div>
     <LoginButton />
   </div>
@@ -45,8 +45,25 @@ body{
 }
 h1{
   align-self: center;
+  font-size: 3em;
+  margin: 0.2px;
 }
 a {
   align-self: start;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: $steel-blue;
+  background: #ddd;
+  padding-left: 2px;
+  padding-right: 2px;
+  transition: border-radius 0.3s;
+}
+
+a:hover{
+  border-radius: 10px;
+}
+h3{
+  font-size: 1.2em;
+  margin: 0;
 }
 </style>

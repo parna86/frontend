@@ -1,8 +1,8 @@
 <template>
   <div class="button">
     <a>Login</a>
-    <a target="_blank" href="https://spikeinterface.readthedocs.io/en/latest/overview.html">Official documentation</a>
-    <a target="_blank" href="https://github.com/SpikeInterface">GitHub organisation</a>
+    <a target="_blank" href="https://spikeinterface.readthedocs.io/en/latest/overview.html">SpikeInterface docs</a>
+    <a target="_blank" href="https://github.com/SpikeInterface">SpikeInterface GitHub</a>
   </div>
 </template>
 
@@ -38,6 +38,9 @@ export default {
     font-size: 14pt;
     border: 1px solid rgba(black, 0.2);
     box-sizing: border-box;
+    color: black;
+    font-weight: 700;
+    // box-shadow: 4px 4px 5px 2px white, -4px -4px 5px 2px #444;
 
     &:hover{
       background-color: #ccc;

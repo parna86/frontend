@@ -4,8 +4,8 @@
        "description":"Get amplitude per channel for each unit",
        "filename": "idk",
        "paramset" :{
-         "peak_sign" : ["text", "neg"],
-         "mode" : ["str", "extremum"]
+         "peak_sign" : ["text", "neg", "Sign of the template to compute best channels ('neg', 'pos', 'both')"],
+         "mode" : ["str", "extremum", "'extremum':  max or min, 'at_index': take value at spike index"]
        }
      }
    }

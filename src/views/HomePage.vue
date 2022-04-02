@@ -4,7 +4,7 @@
     <ErrorModal v-if="runPipelineError"/>
     <div class="content">
       <div class="steps-wrapper">
-        <h5>Choose one of the steps below:</h5>
+        <h3>Choose one of the steps below:</h3>
         <div class="checkbox-wrapper-outer" style="margin-top: 30px">
           <div
             class="checkbox-wrapper"
@@ -28,7 +28,7 @@
 
         <!-- INDIVIDUAL STEP WRAPPERS -->
         <div class="parameters-wrapper" v-if="pickStep == 'preprocessing'">
-          <h4>The list of preprocessors available are:</h4>
+          <h3>The list of preprocessors available are:</h3>
           <hr />
           <div v-for="(value, name) in listOfPreprocessingSteps" :key="name">
             <input
@@ -44,7 +44,7 @@
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'spikesorting'">
-          <h4>The list of spike sorters available are:</h4>
+          <h3>The list of spike sorters available are:</h3>
           <hr />
           <div v-for="(value, name) in listOfSpikeSorters" :key="name">
             <input
@@ -55,12 +55,12 @@
               v-model="pickSubStep"
               v-bind:value="name"
             />
-            <label :for="name">{{ name }}</label>
+            <label :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'postprocessing'">
-          <h4>The list of postprocessors available are:</h4>
+          <h3>The list of postprocessors available are:</h3>
           <hr />
           <div v-for="(value, name) in listOfPostprocessingSteps" :key="name">
             <input
@@ -71,7 +71,7 @@
               v-model="pickSubStep"
               v-bind:value="name"
             />
-            <label :for="name">{{ name }}</label>
+            <label :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
@@ -89,7 +89,7 @@
             :key="k"
             class="individual-labels"
           >
-            <label :for="k" data-toggle="tooltip" data-placement="top" title="Tooltip on top">{{ k }} <br> {{ v[2] }}</label>
+            <label :for="k" data-toggle="tooltip" data-placement="top" title="Tooltip on top"><b>{{ k }}</b> <br> {{ v[2] }}</label>
             <input
               :type="v[0]"
               :value="v[1]"
@@ -117,7 +117,7 @@
             :key="k"
             class="individual-labels"
           >
-            <label :for="k">{{ k }}</label>
+            <label :for="k"><b>{{ k }}</b> <br> {{ v[2] }}</label>
             <input
               :type="v[0]"
               :value="v[1]"
@@ -150,7 +150,7 @@
             :key="k"
             class="individual-labels"
           >
-            <label :for="k">{{ k }}</label>
+            <label :for="k"><b>{{ k }}</b> <br> {{ v[2] }}</label>
             <input
               :type="v[0]"
               :value="v[1]"
@@ -180,12 +180,15 @@
         <ol class="pipeline-body">
           <h3>The pipeline will be built here</h3>
           <li
-            class="pipeline-structure-one-unit"
             v-for="oneStep in thePipeline"
             :key="oneStep.nameOfStep"
+            :class="['pipeline-structure-one-unit', oneStep.category]"
           >
             {{ oneStep.nameOfStep }}
-            <span v-if="oneStep.ref">Ref: {{ oneStep.ref }}</span>
+            <span v-if="oneStep.params.ref">Ref: {{ oneStep.params.ref }}</span>
+            <span class="params-span" style="display: none">
+              <span v-for="(k,v) in oneStep.params" :key="k"> {{v}} : {{k}}</span>
+            </span>
             <CloseIcon class="close" @click="removeStep(oneStep.id)" />
           </li>
         </ol>
@@ -201,7 +204,7 @@
       </div>
     </div>
   </div>
-   <!-- <footer>Developed by Aparna Rajeev in the School of Informatics, University of Edinburgh</footer> -->
+   <footer>Developed by Aparna Rajeev in the School of Informatics, University of Edinburgh</footer>
   </div>
 </template>
 
@@ -343,7 +346,7 @@ export default {
           // convert image file to base64 string
           this.pipeline = JSON.parse(reader.result)
           console.log(this.pipeline[0].nameOfStep)
-          this.info = 'pipeline uploaded successfully'
+          this.info = 'Pipeline uploaded successfully!'
         }.bind(this)
       )
 
@@ -360,8 +363,8 @@ export default {
 
 .home {
   display: grid;
-  grid-template-rows: 15vh 85vh;
-  grid-template-areas: "top-bar" "content";
+  grid-template-rows: 15vh 82vh 3vh;
+  grid-template-areas: "top-bar" "content" "footer";
   font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -379,11 +382,9 @@ export default {
   border-top: none;
   width: 100%;
   margin: 0;
-  padding-bottom: 50px;
-}
-
-h4{
-  margin: 2px;
+  h3{
+    margin-top: 10px;
+  }
 }
 
 .checkbox-wrapper {
@@ -424,7 +425,9 @@ input[type="radio"].main-labels:checked + label.main-labels {
 
 .parameters-wrapper {
   box-sizing: border-box;
-  width: 60%;
+  width: 40vw;
+  max-height: 30vh;
+  overflow-y: scroll;
   padding: 10px;
   border: 2px solid #eee;
   text-align: center;
@@ -436,17 +439,30 @@ input[type="radio"].main-labels:checked + label.main-labels {
     justify-content: start;
   }
 
+  input{
+    display: none;
+  }
+
+  input:checked + label{
+    box-shadow: 0px 0px 0px 2px black;
+  }
+
   label {
     text-align: left;
-    width: 250px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    margin: 1px;
-    padding: 2px;
+    margin: 2px;
+    padding: 5px;
+    width: 35vw;
+  }
+
+  label:hover{
+    box-shadow: 0px 0px 0px 1px #777;
   }
   .description{
     color: #888;
   }
+
 }
 
 .params {
@@ -455,7 +471,7 @@ input[type="radio"].main-labels:checked + label.main-labels {
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
-  max-height: 40vh;
+  max-height: 30vh;
   overflow-y: scroll;
 
   .individual-labels {
@@ -487,7 +503,8 @@ input[type="radio"].main-labels:checked + label.main-labels {
     font-weight: 700;
 
     &:active {
-      background: rgba($steel-blue, 0.7);
+      // background: rgba($steel-blue, 0.7);
+      background: rgba($steel-blue, 0.6);
     }
   }
 }
@@ -503,6 +520,8 @@ input[type="radio"].main-labels:checked + label.main-labels {
   .pipeline-structure-one-unit {
     border: 2px solid $white-smoke;
     padding: 10px;
+    margin: 2px;
+    border-radius: 5px;
     width: 80%;
     display: grid;
     grid-auto-flow: column;
@@ -516,6 +535,17 @@ input[type="radio"].main-labels:checked + label.main-labels {
       cursor: pointer;
     }
   }
+  .pipeline-structure-one-unit.spikesorting{
+    border: 2px solid rgb(74, 0, 0);
+    background-color: rgba(74, 0, 0, 0.1);
+  }
+  .pipeline-structure-one-unit.preprocessing{
+    border: 2px solid rgb(9, 9, 69);
+    background-color: rgba(9,9,69, 0.1);
+  }
+  .pipeline-structure-one-unit.postprocessing{
+    border: 2px solid rgb(3, 46, 3);
+  }
 }
 
 button,
@@ -525,6 +555,7 @@ input[type="submit"] {
   background: rgba($steel-blue, 0.3);
   padding: 1vh;
   margin: 10px;
+  font-size: 1em;
   font-family: "Source Sans Pro", sans-serif;
 
   &:hover {

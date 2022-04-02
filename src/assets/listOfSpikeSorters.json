@@ -2,6 +2,7 @@
   "listForm": {
     "Herdingspikes2": {
     "filename": "herdingspikes",
+    "description": "Herding Spikes is a density-based spike sorter designed for high-density retinal recordings. It uses both PCA features and an estimate of the spike location to cluster different units.",
     "paramset" : {
       "clustering_bandwidth": ["float", 5.5, "Meanshift bandwidth, average spatial extent of spike clusters (um)"],
       "clustering_alpha": ["float", 5.5, "Scalar for the waveform PC features when clustering."], 
@@ -38,17 +39,18 @@
     },
     "MountainSort4":{
       "filename":"mountainsort4",
+      "description": "Mountainsort4 is a fully automatic density-based spike sorter using the isosplit clustering method and automatic curation procedures.",
       "paramset": {
-        "detect_sign": ["number", -1],
-        "adjacency_radius": ["number", -1],
-        "freq_min": ["number", 300],  
-        "freq_max": ["number", 6000],
-        "filter": ["text", "True"],
-        "whiten": ["text", "True"],  
-        "num_workers": ["number", 1],
-        "clip_size": ["number", 50],
-        "detect_threshold" : ["number", 3],
-        "detect_interval": ["number", 10]
+        "detect_sign": ["number", -1, "Use -1 (negative) or 1 (positive) depending on the sign of the spikes in the recording"],
+        "adjacency_radius": ["number", -1, "Radius in um to build channel neighborhood (Use -1 to include all channels in every neighborhood)"],
+        "freq_min": ["number", 300, "High-pass filter cutoff frequency"],  
+        "freq_max": ["number", 6000, "Low-pass filter cutoff frequency"],
+        "filter": ["text", "True", "Enable or disable filter"],
+        "whiten": ["text", "True", "Enable or disable whitening"],  
+        "num_workers": ["number", 1, "Number of workers (if None, half of the cpu number is used)"],
+        "clip_size": ["number", 50, "Number of samples per waveform"],
+        "detect_threshold" : ["number", 3, "Threshold for spike detection"],
+        "detect_interval": ["number", 10, "Minimum number of timepoints between events detected on the same channel"]
       }
     }
   }
