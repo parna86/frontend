@@ -526,6 +526,7 @@ input[type="radio"].main-labels:checked + label.main-labels {
     display: grid;
     grid-auto-flow: column;
     text-align: left;
+    transition: visibility 0.2s;
 
     .close {
       font-weight: bold;
@@ -536,15 +537,16 @@ input[type="radio"].main-labels:checked + label.main-labels {
     }
   }
   .pipeline-structure-one-unit.spikesorting{
-    border: 2px solid rgb(74, 0, 0);
-    background-color: rgba(74, 0, 0, 0.1);
+    border: 2px solid rgb(199, 138, 138);
+    background-color: rgba(247, 107, 107, 0.1);
   }
   .pipeline-structure-one-unit.preprocessing{
-    border: 2px solid rgb(9, 9, 69);
-    background-color: rgba(9,9,69, 0.1);
+    border: 2px solid rgb(187, 187, 255);
+    background-color: rgba(161, 161, 222, 0.1);
   }
   .pipeline-structure-one-unit.postprocessing{
-    border: 2px solid rgb(3, 46, 3);
+    border: 2px solid rgb(124, 167, 124);
+    background-color: rgba(174, 247, 174, 0.1);
   }
 }
 
@@ -571,5 +573,8 @@ input[type="submit"] {
 
 footer{
   bottom: 0;
+  background-color: $steel-blue;
+  font-weight: 700;
+  color: $white-smoke;
 }
 </style>
