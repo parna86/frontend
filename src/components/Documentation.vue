@@ -1,6 +1,5 @@
 <template>
   <div class="button">
-    <a>Login</a>
     <a target="_blank" href="https://spikeinterface.readthedocs.io/en/latest/overview.html">SpikeInterface docs</a>
     <a target="_blank" href="https://github.com/SpikeInterface">SpikeInterface GitHub</a>
   </div>
@@ -8,7 +7,7 @@
 
 <script>
 export default {
-  name: 'LoginButton',
+  name: 'Documentation',
   props: {
     username: String
   }
@@ -16,35 +15,41 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style scoped lang="scss">
 .button{
-  background-color: $white-smoke;
   display:grid;
-  color: black;
+  grid-template-rows: 1;
+  grid-template-columns: 1fr 1fr;
   height: 100%;
-  width: 50%;
+  width: 100%;
   justify-self: end;
-  align-self: center;
   justify-items: center;
   align-items: center;
 
   a{
-    width: 100%;
-    height: 100%;
+    height: 40%;
+    width: 80%;
     display: flex;
+    align-self: center;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font-size: 14pt;
-    border: 1px solid rgba(black, 0.2);
+    font-size: 13pt;
+    border: 1px solid $white-smoke;
+    border-radius: 20px;
+    background: none;
+    text-shadow: 1px solid black;
     box-sizing: border-box;
-    color: black;
+    color: white;
     font-weight: 700;
     // box-shadow: 4px 4px 5px 2px white, -4px -4px 5px 2px #444;
+    transition: background 0.5s, border 0.4s, color 0.4s;
 
     &:hover{
-      background-color: #ccc;
       cursor: pointer;
+      background-color: rgba(white,0.8);
+      border: 2px solid $white-smoke;
+      color: $steel-blue;
     }
   }
 }

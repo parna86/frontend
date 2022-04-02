@@ -9,6 +9,7 @@
     "deploy": "npm run build; push-dir --dir=dist --branch=master --cleanup"
   },
   "dependencies": {
+    "@mdi/js": "^6.6.96",
     "@mui/material": "^5.4.0",
     "axios": "^0.26.0",
     "bootstrap": "^5.1.3",

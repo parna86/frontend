@@ -20,7 +20,8 @@
               v-model="pickStep"
               v-bind:value="step.id"
             />
-            <label class="main-labels" :for="step.id">{{
+            <label :for="step.id" :class="[step.something === 'Spike sorting'?'spikesorting': step.something === 'Preprocessing' ? 'preprocessing' : 'postprocessing', 'main-labels']">
+            {{
               step.something
             }}</label>
           </div>
@@ -360,6 +361,9 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,400;1,600;1,700;1,900&display=swap");
+body{
+    margin: 0;
+}
 
 .home {
   display: grid;
@@ -412,14 +416,44 @@ label.main-labels {
   padding-left: 4px;
   padding-right: 4px;
   border-radius: 15px;
+}
 
+.main-labels.spikesorting{
+  border: 2px solid rgb(199, 138, 138);
+  background-color: rgba(247, 107, 107, 0.1);
   &:hover {
-    background-color: rgba($steel-blue, 0.3);
+    background-color: rgba(247, 107, 107, 0.2);
   }
 }
 
-input[type="radio"].main-labels:checked + label.main-labels {
-  background-color: rgba($steel-blue, 0.5);
+input[type="radio"].main-labels:checked + .main-labels.spikesorting {
+   background-color: rgba(247, 107, 107, 0.3);
+  box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
+}
+
+.main-labels.preprocessing{
+  border: 2px solid rgb(187, 187, 255);
+  background-color: rgba(161, 161, 222, 0.1);
+  &:hover {
+    background-color: rgba(161, 161, 222, 0.2);
+  }
+}
+
+input[type="radio"].main-labels:checked +.main-labels.preprocessing {
+  background-color: rgba(161, 161, 222, 0.3);
+  box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
+}
+
+.main-labels.postprocessing{
+  border: 2px solid rgb(124, 167, 124);
+  background-color: rgba(174, 247, 174, 0.1);
+  &:hover {
+    background-color: rgba(174, 247, 174, 0.2);
+  }
+}
+
+input[type="radio"].main-labels:checked + .main-labels.postprocessing {
+  background-color: rgba(174, 247, 174, 0.3);
   box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
 }
 
