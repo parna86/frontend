@@ -419,41 +419,41 @@ label.main-labels {
 }
 
 .main-labels.spikesorting{
-  border: 2px solid rgb(199, 138, 138);
-  background-color: rgba(247, 107, 107, 0.1);
+  border: 2px solid $dark-orange;
+  background-color:  rgba($dark-orange, 0.1);
   &:hover {
-    background-color: rgba(247, 107, 107, 0.2);
+    background-color:  rgba($dark-orange, 0.2);
   }
 }
 
 input[type="radio"].main-labels:checked + .main-labels.spikesorting {
-   background-color: rgba(247, 107, 107, 0.3);
+  background-color:  rgba($dark-orange, 0.3);
   box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
 }
 
 .main-labels.preprocessing{
-  border: 2px solid rgb(187, 187, 255);
-  background-color: rgba(161, 161, 222, 0.1);
+  border: 2px solid $magic-mint;
+  background-color:  rgba($magic-mint, 0.1);
   &:hover {
-    background-color: rgba(161, 161, 222, 0.2);
+    background-color: rgbrgba($magic-mint, 0.2);
   }
 }
 
 input[type="radio"].main-labels:checked +.main-labels.preprocessing {
-  background-color: rgba(161, 161, 222, 0.3);
-  box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
+  background-color: rgba($magic-mint, 0.3);
+  // box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
 }
 
 .main-labels.postprocessing{
-  border: 2px solid rgb(124, 167, 124);
-  background-color: rgba(174, 247, 174, 0.1);
+  border: 2px solid $indigo-dye;
+  background-color:  rgba($indigo-dye, 0.1);
   &:hover {
-    background-color: rgba(174, 247, 174, 0.2);
+    background-color:  rgba($indigo-dye, 0.2);
   }
 }
 
 input[type="radio"].main-labels:checked + .main-labels.postprocessing {
-  background-color: rgba(174, 247, 174, 0.3);
+  background-color:  rgba($indigo-dye, 0.3);
   box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
 }
 
@@ -571,16 +571,16 @@ input[type="radio"].main-labels:checked + .main-labels.postprocessing {
     }
   }
   .pipeline-structure-one-unit.spikesorting{
-    border: 2px solid rgb(199, 138, 138);
-    background-color: rgba(247, 107, 107, 0.1);
+    border: 2px solid $dark-orange;
+    background-color:  rgba($dark-orange, 0.1);
   }
   .pipeline-structure-one-unit.preprocessing{
-    border: 2px solid rgb(187, 187, 255);
-    background-color: rgba(161, 161, 222, 0.1);
+    border: 2px solid $magic-mint;
+    background-color:  rgba($magic-mint, 0.1);
   }
   .pipeline-structure-one-unit.postprocessing{
-    border: 2px solid rgb(124, 167, 124);
-    background-color: rgba(174, 247, 174, 0.1);
+    border: 2px solid $indigo-dye;
+    background-color:  rgba($indigo-dye, 0.1);
   }
 }
 
