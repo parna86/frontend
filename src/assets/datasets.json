@@ -1,0 +1,7 @@
+{
+  "datasets": ["cambridge_data.bin",
+    "sub-P29-16-05-14-retina02-left_ecephys.nwb",
+    "biocam_hw3.0_fw1.6.brw",
+    "H19.29.141.11.21.01.nwb",
+    "mearec_test_10s.h5"]
+}

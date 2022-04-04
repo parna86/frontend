@@ -4,6 +4,13 @@
     <ErrorModal v-if="runPipelineError"/>
     <div class="content">
       <div class="steps-wrapper">
+        <div class="datasets-wrapper">
+          <label>Choose a dataset</label>
+          <input id="datasetSelector" type="text" list="datasets" spellcheck="false">
+          <datalist id="datasets">
+            <option v-for="dataset in listOfDatasets" :key="dataset">{{ dataset }}</option>
+          </datalist>
+        </div>
         <h3>Choose one of the steps below:</h3>
         <div class="checkbox-wrapper-outer" style="margin-top: 30px">
           <div
@@ -83,8 +90,6 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Optional - Reference</b></label>
-          <input name="ref" aria-label="reference for preprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfPreprocessingSteps[pickSubStep].paramset"
             :key="k"
@@ -111,8 +116,6 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Optional - Reference</b></label>
-          <input name="ref" aria-label="reference for preprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfSpikeSorters[pickSubStep].paramset"
             :key="k"
@@ -144,8 +147,6 @@
           id="params-form"
           @submit.prevent="addStep()"
         >
-          <label for="ref"><b>Optional - Reference</b></label>
-          <input name="ref" aria-label="reference for postprocessing step" type="text" />
           <div
             v-for="(v, k) in listOfPostprocessingSteps[pickSubStep].paramset"
             :key="k"
@@ -170,7 +171,7 @@
       <!-- steps-wrapper -->
       <div class="pipeline-structure">
         <div>
-        <button @click="runPipeline()">Run pipeline</button>
+        <button @click.prevent="runPipeline()">Run pipeline</button>
         <input
           type="file"
           style="display: none"
@@ -186,10 +187,6 @@
             :class="['pipeline-structure-one-unit', oneStep.category]"
           >
             {{ oneStep.nameOfStep }}
-            <span v-if="oneStep.params.ref">Ref: {{ oneStep.params.ref }}</span>
-            <span class="params-span" style="display: none">
-              <span v-for="(k,v) in oneStep.params" :key="k"> {{v}} : {{k}}</span>
-            </span>
             <CloseIcon class="close" @click="removeStep(oneStep.id)" />
           </li>
         </ol>
@@ -217,6 +214,7 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 import preprocessingSteps from '@/assets/listOfPreprocessing.json'
 import spikeSorters from '@/assets/listOfSpikeSorters.json'
 import postprocessing from '@/assets/listOfPostprocessing.json'
+import datasetsFile from '@/assets/datasets.json'
 
 export default {
   name: 'HomePage',
@@ -232,6 +230,7 @@ export default {
       listOfPreprocessingSteps: preprocessingSteps.listForm,
       listOfSpikeSorters: spikeSorters.listForm,
       listOfPostprocessingSteps: postprocessing.listForm,
+      listOfDatasets: datasetsFile.datasets,
       pipeline: [],
       availableDatasets: [],
       runPipelineError: false,
@@ -309,30 +308,39 @@ export default {
       }
       if (this.info === 'Pipeline running') {
         this.additionalInfo = 'There is a pipeline already running, please wait'
+        return
       }
       var url = 'http://127.0.0.1:5000/run'
-      var data = JSON.stringify(this.pipeline)
+      var dataset = document.getElementById('datasetSelector').value
+      if (dataset === '') {
+        this.info = 'No dataset selected'
+        return
+      }
+      var data = JSON.stringify([{ dataset }].concat(this.pipeline))
+      console.log('before running pipeline')
       console.log(data)
       this.info = 'Pipeline running'
       this.axios.post(url, data, { headers: { 'Content-Type': 'application/json' } })
         .then((response) => {
-          this.info = response
-          console.log("We've reached here")
-          console.log(this.info)
+          console.log('Success')
+          console.log(response.data.message)
+          this.info = 'Running pipeline successful'
+          this.additionalInfo = response.data
         })
         .catch((error) => {
-          console.log(error.response.data)
-          this.info = error.response.data.message
+          if (error.response) {
+            console.log(error.response.data)
+            module.info = error.response.data
+          } else if (error.request) {
+            console.log('error with request')
+            console.log(error.toJSON().message)
+            module.info = error.toJSON().message
+            console.log('this.info: ' + module.info)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message)
+          }
         })
-      // var xhr = new XMLHttpRequest()
-      // xhr.open('POST', url, true)
-      // xhr.setRequestHeader('Content-Type', 'application/json')
-      // xhr.onreadystatechange = function () {
-      //   if (xhr.readyState === 4 && xhr.status === 200) {
-      //     console.log('Done')
-      //   }
-      // }
-      // xhr.send(data)
     },
     onPickFile () {
       this.$refs.fileInput.click()
@@ -426,6 +434,11 @@ label.main-labels {
   }
 }
 
+input{
+  font-family: 'Courier New';
+  font-weight: 600;
+}
+
 input[type="radio"].main-labels:checked + .main-labels.spikesorting {
   background-color:  rgba($dark-orange, 0.3);
   box-shadow: 0px 0px 0px 0.5px inset $dark-slate-grey;
@@ -460,7 +473,7 @@ input[type="radio"].main-labels:checked + .main-labels.postprocessing {
 .parameters-wrapper {
   box-sizing: border-box;
   width: 40vw;
-  max-height: 30vh;
+  max-height: 28vh;
   overflow-y: scroll;
   padding: 10px;
   border: 2px solid #eee;
@@ -544,6 +557,7 @@ input[type="radio"].main-labels:checked + .main-labels.postprocessing {
 }
 
 .pipeline-structure {
+
   ol {
     list-style: none;
     margin: 0 auto;
@@ -600,7 +614,7 @@ input[type="submit"] {
 }
 
 .pipeline-body{
-  border: 1px solid $dark-slate-grey;
+  border: 2px solid grey;
   padding-bottom: 20px;
   width: 80%;
 }
@@ -610,5 +624,28 @@ footer{
   background-color: $steel-blue;
   font-weight: 700;
   color: $white-smoke;
+}
+
+.error-handling{
+  border: 2px solid grey;
+  width: 50%;
+  margin: 0 auto;
+  justify-self: center;
+}
+
+.datasets-wrapper{
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1em;
+  padding: 5px;
+  border-bottom: 1px solid grey;
+  label{
+    font-weight: bold;
+  }
+  input{
+    margin: 5px;
+  }
 }
 </style>
