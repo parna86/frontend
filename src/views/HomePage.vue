@@ -320,6 +320,7 @@ export default {
       console.log('before running pipeline')
       console.log(data)
       this.info = 'Pipeline running'
+      this.additionalInfo = ''
       this.axios.post(url, data, { headers: { 'Content-Type': 'application/json' } })
         .then((response) => {
           console.log('Success')
@@ -329,15 +330,17 @@ export default {
         })
         .catch((error) => {
           if (error.response) {
+            console.log('here1')
             console.log(error.response.data)
-            module.info = error.response.data
+            this.info = error.response.data.message
           } else if (error.request) {
             console.log('error with request')
             console.log(error.toJSON().message)
-            module.info = error.toJSON().message
+            this.info = error.toJSON().message
             console.log('this.info: ' + module.info)
           } else {
             // Something happened in setting up the request that triggered an Error
+            console.log('here')
             console.log('Error', error.message)
           }
         })
@@ -638,14 +641,17 @@ footer{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.1em;
+  font-size: 1.2em;
   padding: 5px;
   border-bottom: 1px solid grey;
   label{
     font-weight: bold;
   }
   input{
+    font-size: 1em;
     margin: 5px;
+    padding: 4px;
+    width: 60%;
   }
 }
 </style>
