@@ -2,12 +2,12 @@
   <div class="home">
     <TopBar />
     <ErrorModal v-if="runPipelineError"/>
-    <div class="content">
+    <div role="main content area" class="content">
       <div class="steps-wrapper">
         <div class="datasets-wrapper">
           <label>Choose a dataset</label>
-          <input id="datasetSelector" type="text" list="datasets" spellcheck="false">
-          <datalist id="datasets">
+          <input id="datasetSelector" type="text" list="datasets" spellcheck="false" aria-required>
+          <datalist role="list of datasets" id="datasets">
             <option v-for="dataset in listOfDatasets" :key="dataset">{{ dataset }}</option>
           </datalist>
         </div>
@@ -17,6 +17,7 @@
             class="checkbox-wrapper"
             v-for="step in currentSteps"
             :key="step.id"
+            role="radio-group"
           >
             <input
               type="radio"
@@ -25,9 +26,10 @@
               :aria-label="pickStep"
               :id="step.id"
               v-model="pickStep"
-              v-bind:value="step.id"
+              :value="step.id"
+              :aria-labelledby="step.id"
             />
-            <label :for="step.id" :class="[step.something === 'Spike sorting'?'spikesorting': step.something === 'Preprocessing' ? 'preprocessing' : 'postprocessing', 'main-labels']">
+            <label :for="step.id" :id="step.id" :class="[step.something === 'Spike sorting'?'spikesorting': step.something === 'Preprocessing' ? 'preprocessing' : 'postprocessing', 'main-labels']">
             {{
               step.something
             }}</label>
@@ -38,7 +40,7 @@
         <div class="parameters-wrapper" v-if="pickStep == 'preprocessing'">
           <h3>The list of preprocessors available are:</h3>
           <hr />
-          <div v-for="(value, name) in listOfPreprocessingSteps" :key="name">
+          <div role="radio-group" v-for="(value, name) in listOfPreprocessingSteps" :key="name">
             <input
               type="radio"
               :id="name"
@@ -46,15 +48,16 @@
               :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
+              :aria-labelledby="name"
             />
-            <label :for="name">{{ name }} <br> <span class="description"> {{ value["description"] }} </span></label>
+            <label :id="name" :for="name">{{ name }} <br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'spikesorting'">
           <h3>The list of spike sorters available are:</h3>
           <hr />
-          <div v-for="(value, name) in listOfSpikeSorters" :key="name">
+          <div role="radio-group" v-for="(value, name) in listOfSpikeSorters" :key="name">
             <input
               type="radio"
               :id="name"
@@ -62,15 +65,16 @@
               :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
+              :aria-labelledby="name"
             />
-            <label :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
+            <label :id="name" :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
         <div class="parameters-wrapper" v-if="pickStep == 'postprocessing'">
           <h3>The list of postprocessors available are:</h3>
           <hr />
-          <div v-for="(value, name) in listOfPostprocessingSteps" :key="name">
+          <div role="radio-group" v-for="(value, name) in listOfPostprocessingSteps" :key="name">
             <input
               type="radio"
               :id="name"
@@ -78,8 +82,9 @@
               :aria-label="pickSubStep"
               v-model="pickSubStep"
               v-bind:value="name"
+              :aria-labelledby="name"
             />
-            <label :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
+            <label :id="name" :for="name">{{ name }}<br> <span class="description"> {{ value["description"] }} </span></label>
           </div>
         </div>
 
@@ -137,6 +142,7 @@
             :value="listOfSpikeSorters[pickSubStep].filename"
             name="filename"
             style="display: none"
+            aria-hidden="true"
           />
           <input type="submit" aria-label="Add step to pipeline" value="Add step to pipeline" />
         </form>
@@ -196,7 +202,7 @@
         <button @click="downloadPipeline()">Download pipeline</button>
       </div>
       <div class="error-handling">
-        <h3>Status of pipeline</h3>
+        <h3 role="status">Status of pipeline</h3>
         <p> {{ info }} </p>
         <p> {{ additionalInfo }}</p>
       </div>

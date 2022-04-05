@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar">
-    <a class="login">Login</a>
+    <a role="button" class="login">Login</a>
     <div class="wrapper">
        <h1>SpikeWeb</h1>
        <h5>New to this? Click <a href="https://parna86.github.io/spikeinterface-web-docs/" target="_blank" class="docs">here</a> to learn more.</h5>
